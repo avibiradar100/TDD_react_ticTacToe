@@ -1,30 +1,31 @@
 import { fireEvent, render} from "@testing-library/react";
-import Board from "./Board";
+import Game from "./Game.js";
 import { shallow } from "enzyme";
 
-describe("Basic rendering of the Board", () => {
+describe("Basic rendering of the Game", () => {
 
-  test("Should have 9 squares", () => {
-    const board = shallow(<Board />);
+  test("Board should have 9 squares", () => {
+    const board = shallow(<Game />);
     expect(board.find(".square").length).toBe(9);
   });
 
-  it("should render 3 rows of square boards", () => {
-    const board = shallow(<Board />);
+  test("Board row should render 3 rows", () => {
+    const board = shallow(<Game />);
     expect(board.find(".board-row")).toHaveLength(3);
   });
 });
 
-describe("Testing square button clicking functionality", () => {
-  it("should render X on odd number of clicks", () => {
-    const {getByTestId} = render(<Board />);
+describe("Square button should be clickable and able to render", () => {
+
+  test("should render X on odd number of clicks", () => {
+    const {getByTestId} = render(<Game />);
     const square0 = getByTestId("square-0");
     fireEvent.click(square0);
     expect(square0).toHaveValue("X");
   });
 
-  it("should render O on even number of clicks", () => {
-    const {getByTestId} = render(<Board />);
+  test("should render O on even number of clicks", () => {
+    const {getByTestId} = render(<Game />);
     const square0 = getByTestId("square-0");
     const square1 = getByTestId("square-1");
     fireEvent.click(square0);
@@ -33,22 +34,24 @@ describe("Testing square button clicking functionality", () => {
   });
 });
 
-describe("Testing functionality of status button", () => {
-  it("should render Next Player: X initially", () => {
-    const {getByTestId} = render(<Board />);
+describe("Functionality Testing of status button", () => {
+
+  test("should render Next Player: X initially", () => {
+    const {getByTestId} = render(<Game />);
     expect(getByTestId("status")).toHaveTextContent("Next Player: X");
   });
 
-  it("should render Next Player: O after first click", () => {
-    const {getByTestId} = render(<Board />);
+  test("should render Next Player: O after first click", () => {
+    const {getByTestId} = render(<Game />);
     fireEvent.click(getByTestId('square-0'))
     expect(getByTestId("status")).toHaveTextContent("Next Player: O");
   })
 });
 
 describe("Testing for winner", () => {
-  it("should render Winner: X when player X wins", () => {
-    const {getByTestId} = render(<Board />);
+
+  test("should render Winner: X when player X wins", () => {
+    const {getByTestId} = render(<Game />);
     fireEvent.click(getByTestId("square-0")); // X on square 0
     fireEvent.click(getByTestId("square-1")); // O on square 1
     fireEvent.click(getByTestId("square-4")); // X on square 4
@@ -59,8 +62,8 @@ describe("Testing for winner", () => {
     expect(getByTestId("status")).toHaveTextContent("Winner: X");
   });
 
-  it("should render Winner: O when player O wins", () => {
-    const {getByTestId} = render(<Board />);
+  test("should render Winner: O when player O wins", () => {
+    const {getByTestId} = render(<Game />);
     fireEvent.click(getByTestId("square-0")); // X on square 0
     fireEvent.click(getByTestId("square-6")); // O on square 6
     fireEvent.click(getByTestId("square-8")); // X on square 8
