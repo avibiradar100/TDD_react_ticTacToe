@@ -1,8 +1,8 @@
 import React from 'react'
-import Game from './components/Game.js'
+import Board from './components/Board.js'
 
 const App = () => {
-  return <Game></Game>
+  return <Board></Board>
 }
 
-export default App
+export default App;
