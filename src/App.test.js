@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render} from "@testing-library/react";
 import Board from "./Board";
 import { shallow } from "enzyme";
 
